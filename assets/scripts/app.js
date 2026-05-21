@@ -2,14 +2,67 @@
   const schedulePath = "./assets/data/repayment_schedule.json";
   const usagePath = "./assets/data/usage_records.json";
   const historyPath = "./assets/data/repayment_history.json";
+  const DATA_CACHE_PREFIX = "fake-bank-data-cache:";
+  const STATIC_DATA_MAP = {
+    [schedulePath]: "repaymentSchedule",
+    [usagePath]: "usageRecords",
+    [historyPath]: "repaymentHistory",
+  };
 
-  async function loadJson(relativePath) {
-    const response = await fetch(relativePath, { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`加载失败: ${relativePath}`);
+  function getStaticData(relativePath) {
+    const staticDataKey = STATIC_DATA_MAP[relativePath];
+    if (!staticDataKey || !window.FakeBankStaticData) {
+      return null;
     }
 
-    return response.json();
+    const value = window.FakeBankStaticData[staticDataKey];
+    return value == null ? null : value;
+  }
+
+  function getCachedData(relativePath) {
+    try {
+      const rawValue = window.localStorage.getItem(`${DATA_CACHE_PREFIX}${relativePath}`);
+      if (!rawValue) {
+        return null;
+      }
+
+      return JSON.parse(rawValue);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function setCachedData(relativePath, data) {
+    try {
+      window.localStorage.setItem(`${DATA_CACHE_PREFIX}${relativePath}`, JSON.stringify(data));
+    } catch (error) {
+      // 忽略缓存写入失败，页面仍然可以继续使用在线数据
+    }
+  }
+
+  async function loadJson(relativePath) {
+    const staticData = getStaticData(relativePath);
+    if (staticData !== null) {
+      return staticData;
+    }
+
+    try {
+      const response = await fetch(relativePath, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`加载失败: ${relativePath}`);
+      }
+
+      const data = await response.json();
+      setCachedData(relativePath, data);
+      return data;
+    } catch (error) {
+      const cachedData = getCachedData(relativePath);
+      if (cachedData !== null) {
+        return cachedData;
+      }
+
+      throw error;
+    }
   }
 
   function getTodayString() {
