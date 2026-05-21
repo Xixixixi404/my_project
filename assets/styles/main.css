@@ -176,7 +176,6 @@ body[data-page="loan-detail"] .loan-detail-scroll {
 }
 
 #home-summary {
-  padding-top: 0.5rem;
   position: relative;
   background-color: #FFFFFF;
 }
@@ -212,7 +211,6 @@ body[data-page="loan-detail"] .loan-detail-scroll {
 
 .hero-card__detail-chip {
   position: absolute;
-  top: 0.5rem;
   right: -0.1rem;
   display: inline-flex;
   align-items: center;
