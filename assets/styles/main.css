@@ -107,7 +107,6 @@ button {
 .topbar__side.text-button {
   min-width: var(--topbar-side-width);
   color: #6a6a6a;
-  min-height: .44rem;
 }
 
 .topbar__side--start {
@@ -756,6 +755,7 @@ body[data-page="home"] .topbar__title {
 
 body[data-page="home"] .text-button {
   font-size: .22rem;
+  line-height: normal;
 }
 
 body:not([data-page="home"]) .topbar__title {
