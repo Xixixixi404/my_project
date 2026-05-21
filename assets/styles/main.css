@@ -940,7 +940,7 @@ body[data-page="monthly-due-detail"] #monthly-due-detail-summary {
 }
 
 body[data-page="monthly-due-detail"] .monthly-due-card {
-  padding: .56rem .22rem .62rem;
+  padding: 0 .22rem .62rem;
   text-align: center;
   background: var(--surface);
 }
@@ -971,7 +971,7 @@ body[data-page="next-month-due-detail"] #next-month-due-summary {
 }
 
 body[data-page="next-month-due-detail"] .monthly-due-card {
-  padding: .56rem .22rem .62rem;
+  padding: 0rem .22rem .62rem;
   text-align: center;
   background: var(--surface);
 }
