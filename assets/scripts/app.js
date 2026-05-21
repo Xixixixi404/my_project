@@ -104,7 +104,10 @@
       return;
     }
 
-    navigator.serviceWorker.register("./sw.js").catch(function (error) {
+    var scopeUrl = new URL("./", window.location.href);
+    var scriptUrl = new URL("./sw.js", window.location.href);
+
+    navigator.serviceWorker.register(scriptUrl.pathname, { scope: scopeUrl.pathname }).catch(function (error) {
       console.error("service worker register failed", error);
     });
   }

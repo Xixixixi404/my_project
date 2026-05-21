@@ -1,4 +1,4 @@
-const CACHE_NAME = "fake-bank-v7";
+const CACHE_NAME = "fake-bank-v8";
 const OFFLINE_FALLBACK = "./index.html";
 const ASSETS = [
   "./",
@@ -15,9 +15,6 @@ const ASSETS = [
   "./assets/scripts/app.js",
   "./assets/scripts/data.js",
   "./assets/scripts/static-data.js",
-  "./assets/data/repayment_schedule.json",
-  "./assets/data/repayment_history.json",
-  "./assets/data/usage_records.json",
   "./assets/logo.png",
   "./assets/icons/arrow.svg",
   "./assets/icons/back.svg",
