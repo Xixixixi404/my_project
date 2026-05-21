@@ -1,6 +1,7 @@
-const CACHE_NAME = "fake-bank-v5";
+const CACHE_NAME = "fake-bank-v6";
 const OFFLINE_FALLBACK = "./index.html";
 const ASSETS = [
+  "./",
   "./index.html",
   "./loan-detail.html",
   "./monthly-due-detail.html",
