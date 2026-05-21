@@ -176,6 +176,7 @@ body[data-page="loan-detail"] .loan-detail-scroll {
 }
 
 #home-summary {
+  padding-top: 0.2rem;
   position: relative;
   background-color: #FFFFFF;
 }
@@ -211,6 +212,7 @@ body[data-page="loan-detail"] .loan-detail-scroll {
 
 .hero-card__detail-chip {
   position: absolute;
+  top: 0.2rem;
   right: -0.1rem;
   display: inline-flex;
   align-items: center;
@@ -429,7 +431,7 @@ body[data-page="loan-detail"] .loan-detail-scroll {
   display: flex;
   align-items: center;
   min-height: .74rem;
-  padding: .30rem .22rem;
+  padding: .40rem .22rem .30rem;
   background: var(--surface-muted);
 }
 
@@ -509,10 +511,6 @@ body[data-page="loan-detail"] .loan-detail-scroll {
   border: 0;
   background: transparent;
   text-align: left;
-}
-
-.field-row span {
-  /* color: var(--text); */
 }
 
 .field-row strong {
