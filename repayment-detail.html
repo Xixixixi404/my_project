@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>还款详情</title>
+    <meta name="theme-color" content="#f4f4f4" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./assets/styles/main.css" />
+  </head>
+  <body data-page="repayment-detail">
+    <main class="app-shell">
+      <header class="topbar">
+        <button class="icon-button topbar__side topbar__side--start" type="button" aria-label="返回">
+          <img class="icon-button__image" src="./assets/icons/back.svg" alt="" />
+        </button>
+        <h1 class="topbar__title">还款详情</h1>
+        <div class="topbar-spacer topbar__side topbar__side--end" aria-hidden="true"></div>
+      </header>
+
+      <section class="repayment-screen">
+        <div id="repayment-tab-switch"></div>
+        <div id="repayment-filters"></div>
+        <div id="repayment-detail-list"></div>
+      </section>
+    </main>
+
+    <script src="./assets/scripts/data.js"></script>
+    <script src="./assets/scripts/app.js"></script>
+  </body>
+</html>

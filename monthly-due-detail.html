@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>本月应还</title>
+    <meta name="theme-color" content="#f4f4f4" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./assets/styles/main.css" />
+  </head>
+  <body data-page="monthly-due-detail">
+    <main class="app-shell">
+      <header class="topbar">
+        <button class="icon-button topbar__side topbar__side--start" type="button" aria-label="返回">
+          <img class="icon-button__image" src="./assets/icons/back.svg" alt="" />
+        </button>
+        <h1 class="topbar__title">本月应还</h1>
+        <button class="text-button topbar__side topbar__side--end" type="button">下月应还</button>
+      </header>
+
+      <section class="page-section" id="monthly-due-detail-summary"></section>
+      <section class="page-section" id="monthly-due-detail-note"></section>
+    </main>
+
+    <script src="./assets/scripts/data.js"></script>
+    <script src="./assets/scripts/app.js"></script>
+  </body>
+</html>

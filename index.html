@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>我的贷款</title>
+    <meta name="theme-color" content="#f4f4f4" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./assets/styles/main.css" />
+  </head>
+  <body data-page="home">
+    <main class="app-shell">
+      <header class="topbar">
+        <button class="icon-button topbar__side topbar__side--start" type="button" aria-label="返回">
+          <img class="icon-button__image" src="./assets/icons/back.svg" alt="" />
+        </button>
+        <h1 class="topbar__title">我的贷款</h1>
+        <button class="text-button topbar__side topbar__side--end" type="button">历史贷款</button>
+      </header>
+
+      <section class="page-section" id="home-summary"></section>
+      <section class="page-section" id="feature-grid"></section>
+      <section class="panel" id="contract-panel">
+        <div class="panel__header">
+          <h2 class="section-title">我的贷款合同</h2>
+        </div>
+        <div class="panel__body" id="contract-panel-body"></div>
+      </section>
+    </main>
+
+    <script src="./assets/scripts/data.js"></script>
+    <script src="./assets/scripts/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1106 @@
+@font-face {
+  font-family: "FakeBankPingFang";
+  src: url("../front/PingFang Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --page-width: 100vw;
+  --bg: #f4f4f4;
+  --surface: #ffffff;
+  --surface-muted: #f7f7f7;
+  --text: #2f3137;
+  --text-muted: #999;
+  --line: #ececec;
+  --accent: #10c4b6;
+  --accent-soft: #ffdda1;
+  --warning: #f5a513;
+  --shadow-soft: 0 12px 30px rgba(15, 24, 40, 0.04);
+  --radius-card: .24rem;
+  --radius-pill: 999px;
+  --topbar-height: .88rem;
+  --topbar-side-width: .96rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "PingFang SC", "FakeBankPingFang", "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+
+html {
+  font-size: calc(100vw / 6.03);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: var(--page-width);
+  min-height: 100vh;
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: grid;
+  grid-template-columns: var(--topbar-side-width) minmax(0, 1fr) var(--topbar-side-width);
+  align-items: center;
+  gap: 0;
+  min-height: var(--topbar-height);
+  padding: .16rem .18rem .1rem;
+  background: var(--surface);
+  width: 100%;
+  max-width: var(--page-width);
+}
+
+.topbar__title {
+  margin: 0;
+  font-size: .3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.icon-button,
+.text-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: .4rem;
+  min-height: .4rem;
+  padding: 0;
+  cursor: pointer;
+}
+
+.topbar__side.text-button {
+  min-width: var(--topbar-side-width);
+  color: #6a6a6a;
+  min-height: .44rem;
+}
+
+.topbar__side--start {
+  justify-self: start;
+  justify-content: flex-start;
+}
+
+.topbar__side--end {
+  justify-self: end;
+  justify-content: flex-end;
+}
+
+.topbar__side--end .icon-button__image {
+  width: 0.24rem;
+}
+
+.text-button {
+  padding: 0;
+  color: var(--text-muted);
+  font-size: .22rem;
+  line-height: 1.2;
+}
+
+.icon-button__glyph,
+.icon-button__placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: .3rem;
+  height: .3rem;
+  color: #393b41;
+  font-size: .36rem;
+  line-height: 1;
+}
+
+.icon-button__image {
+  width: .22rem;
+  height: .34rem;
+  object-fit: contain;
+}
+
+.page-section {
+  width: 100%;
+}
+
+body[data-page] .app-shell {
+  padding-top: var(--topbar-height);
+}
+
+body[data-page="loan-detail"] {
+  overflow: hidden;
+}
+
+body[data-page="loan-detail"] .app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+body[data-page="loan-detail"] .loan-detail-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#home-summary {
+  padding-top: 0.5rem;
+  position: relative;
+  background-color: #FFFFFF;
+}
+
+.hero-card,
+.panel,
+.record-stack,
+.repayment-screen {
+  width: 100%;
+}
+
+.hero-card {
+  display: flex;
+  flex-direction: column;
+  padding: .15rem .22rem 0;
+  background: var(--surface);
+}
+
+.hero-card__amount {
+  font-size: .88rem;
+  line-height: 1;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: -.02rem;
+}
+
+.hero-card__label {
+  margin-top: .1rem;
+  color: var(--text-muted);
+  font-size: .26rem;
+  text-align: center;
+}
+
+.hero-card__detail-chip {
+  position: absolute;
+  top: 0.5rem;
+  right: -0.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.03rem .2rem 0.05rem;
+  border-radius: var(--radius-pill) 0 0 var(--radius-pill);
+  background: var(--warning);
+  color: #fff;
+}
+
+.hero-card__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .08rem;
+  margin-top: .56rem;
+  padding-bottom: .2rem;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-stat__value {
+  font-size: .42rem;
+  line-height: 1.1;
+}
+
+.hero-stat__value--warning {
+  color: var(--warning);
+}
+
+.hero-stat__label {
+  display: inline-flex;
+  align-items: center;
+  gap: .1rem;
+  margin-top: .06rem;
+  color: var(--text);
+  font-size: .22rem;
+  line-height: 1.3;
+}
+
+.hero-stat__eye {
+  width: .22rem;
+  height: .22rem;
+  object-fit: contain;
+}
+
+#feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .08rem;
+  padding: .26rem .12rem;
+  background: var(--surface);
+  border-top: 2px solid var(--line);
+}
+
+.feature-grid__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .12rem;
+  padding: .1rem .03rem .08rem;
+}
+
+.feature-grid__icon {
+  display: block;
+  width: .50rem;
+  height: .50rem;
+  object-fit: contain;
+}
+
+.feature-grid__label {
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.contract-list {
+  padding: 0 .22rem 0.1rem;
+  background: var(--surface);
+}
+
+.contract-summary {
+  padding-bottom: 6px;
+}
+
+.loan-card {
+  background: var(--surface);
+}
+
+.loan-overview {
+  background: var(--surface);
+}
+
+.loan-ring {
+  position: relative;
+  width: 2.44rem;
+  height: 2.44rem;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, var(--surface) 60%, transparent 60%),
+    conic-gradient(var(--accent-soft) 0deg, var(--accent-soft) 360deg);
+}
+
+.loan-ring::before {
+  content: "";
+  position: absolute;
+  inset: .38rem;
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+.loan-ring__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .12rem;
+  text-align: center;
+}
+
+.loan-ring__label {
+  color: var(--text-muted);
+  font-size: .24rem;
+  font-weight: 600;
+}
+
+.loan-ring__value {
+  font-weight: 600;
+}
+
+.metric-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .1rem;
+  margin-top: .34rem;
+}
+
+.metric-row__cell {
+  text-align: center;
+}
+
+.metric-row__value {
+  font-size: .38rem;
+  font-family: 'Noto Sans SC', sans-serif;
+  color: var(--text);
+}
+
+.metric-row__label {
+  margin-top: .12rem;
+  color: var(--text);
+  font-size: .22rem;
+  line-height: 1.3;
+}
+
+.action-strip {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  align-items: center;
+  background: var(--surface);
+  border-top: 2px solid var(--line);
+  border-bottom: .15rem solid var(--bg);
+}
+
+.action-strip__divider {
+  height: .46rem;
+  background: var(--line);
+}
+
+.action-strip__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .12rem;
+  padding: .2rem .1rem;
+  font-size: .24rem;
+}
+
+.action-strip__icon {
+  width: .26rem;
+  height: .26rem;
+  object-fit: contain;
+  display: block;
+}
+
+.screen-placeholder {
+  padding: .24rem .18rem .56rem;
+}
+
+.screen-placeholder__box {
+  min-height: 1.2rem;
+  padding: .24rem;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.section-title {
+  margin: 0;
+  font-size: .22rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.panel {
+  background: var(--surface);
+}
+
+.panel__header {
+  display: flex;
+  align-items: center;
+  min-height: .74rem;
+  padding: .30rem .22rem;
+  background: var(--surface-muted);
+}
+
+.panel__body {
+  background: var(--surface);
+}
+
+.row-link,
+.field-row,
+.feature-grid__item,
+.record-card__head,
+.tab-switch__tab,
+.filter-pill {
+  display: flex;
+  align-items: center;
+}
+
+.row-link,
+.field-row {
+  justify-content: space-between;
+}
+
+.row-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: .8rem;
+  border-bottom: 2px solid var(--line);
+  background: var(--surface);
+  text-align: left;
+  margin-bottom: 0.2rem;
+}
+
+.row-link__meta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row-link__meta-icon {
+  width: .22rem;
+  height: .26rem;
+  object-fit: contain;
+}
+
+.arrow-icon {
+  display: inline-block;
+  object-fit: contain;
+  transform-origin: center;
+}
+
+.arrow-icon--right {
+  transform: rotate(180deg);
+}
+
+.arrow-icon--down {
+  transform: rotate(270deg);
+}
+
+.arrow-icon--up {
+  transform: rotate(90deg);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .18rem;
+  font-size: .2rem;
+  line-height: 1.35;
+  margin-bottom: 0.1rem;
+}
+
+.field-row--button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.field-row span {
+  /* color: var(--text); */
+}
+
+.field-row strong {
+  font-weight: 400;
+  color: #888;
+  text-align: right;
+}
+
+.field-row--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.contract-detail-row.is-hidden {
+  display: none;
+}
+
+.field-label {
+  display: inline-flex;
+  align-items: center;
+  gap: .08rem;
+}
+
+.field-label--with-icon {
+  gap: .1rem;
+}
+
+.info-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: .26rem;
+  height: .26rem;
+  object-fit: contain;
+  position: relative;
+  top: 0.02rem;
+}
+
+.field-disclosure {
+  display: inline-flex;
+  align-items: center;
+}
+
+.field-disclosure__icon {
+  width: .24rem;
+  height: .24rem;
+}
+
+.contract-note {
+  padding-top: .14rem;
+  padding-bottom: .18rem;
+  background: var(--surface-muted);
+  border-top: 1px solid var(--line);
+}
+
+.contract-note__text {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: .23rem;
+  line-height: 1.5;
+}
+
+.bottom-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .18rem;
+  padding: .28rem .18rem .24rem;
+  color: #a8abb1;
+  font-size: .18rem;
+}
+
+.bottom-hint::before,
+.bottom-hint::after {
+  content: "";
+  width: .84rem;
+  height: 1px;
+  background: #dadbdd;
+}
+
+.topbar-spacer {
+  width: 100%;
+  height: .44rem;
+}
+
+.record-stack {
+  padding-top: 0;
+}
+
+.record-card {
+  margin-bottom: .1rem;
+  background: var(--surface);
+}
+
+.record-card__head {
+  width: 100%;
+  justify-content: space-between;
+  gap: .16rem;
+  padding: .22rem .22rem .2rem;
+  background: var(--surface);
+  text-align: left;
+}
+
+.record-card__title {
+  font-size: .28rem;
+  line-height: 1.2;
+}
+
+.record-card__time {
+  margin-top: .14rem;
+  color: var(--text-muted);
+  font-size: .22rem;
+}
+
+.record-card__amount-group {
+  display: inline-flex;
+  align-items: center;
+  gap: .18rem;
+}
+
+.record-card__amount {
+  font-size: .3rem;
+}
+
+.record-card__caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.record-card__caret-icon {
+  width: .2rem;
+  height: .12rem;
+}
+
+.record-card__body {
+  display: none;
+  padding-bottom: .12rem;
+  border-top: 2px solid var(--line);
+}
+
+.record-card.is-expanded .record-card__body {
+  display: block;
+}
+
+.tab-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.tab-switch__tab {
+  position: relative;
+  justify-content: center;
+  min-height: .88rem;
+  font-size: .26rem;
+}
+
+.tab-switch__tab.is-active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.tab-switch__label {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.tab-switch__tab.is-active .tab-switch__label::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -.24rem;
+  width: 100%;
+  height: 3px;
+  transform: translateX(-50%);
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: .18rem .2rem;
+  background: #F2F2F2;
+}
+
+.filter-pill {
+  justify-content: center;
+  min-height: .54rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  font-size: .24rem;
+}
+
+.filter-pill.is-active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.repayment-card {
+  margin-bottom: .16rem;
+  padding: .14rem 0;
+  background: var(--surface);
+}
+
+.filter-panel {
+  display: none;
+  gap: .12rem;
+  padding: 0 .18rem .18rem;
+  background: #efefef;
+}
+
+.filter-panel.is-open {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+}
+
+.filter-panel input {
+  width: 100%;
+  min-height: .44rem;
+  padding: 0 .12rem;
+  border: 1px solid #d8dadd;
+  border-radius: .12rem;
+  background: #fff;
+  font-size: .18rem;
+}
+
+.filter-panel button {
+  min-height: .44rem;
+  padding: 0 .18rem;
+  border-radius: .12rem;
+  background: var(--accent);
+  color: #fff;
+  font-size: .18rem;
+}
+
+body[data-page="home"] .topbar__title {
+  font-size: .25rem;
+}
+
+body[data-page="home"] .text-button {
+  font-size: .22rem;
+}
+
+body:not([data-page="home"]) .topbar__title {
+  font-size: .25rem;
+}
+
+body[data-page="loan-detail"] .loan-overview {
+  padding: .22rem .22rem .38rem;
+}
+
+body[data-page="loan-detail"] .loan-card {
+  padding: .04rem .22rem .14rem;
+}
+
+body[data-page="loan-detail"] .loan-card__lead {
+  margin-bottom: .2rem;
+  border-bottom: 1px solid var(--line);
+  font-size: .24rem;
+  padding: .2rem 0 .14rem;
+  color: #555;
+}
+
+
+body[data-page="loan-detail"] strong {
+  font-size: .24rem;
+}
+
+body[data-page="loan-detail"] .loan-card__lead .row-link__label {
+  font-size: .24rem;
+}
+
+body[data-page="loan-detail"] .loan-ring__label {
+  font-size: .22rem;
+}
+
+body[data-page="loan-detail"] .loan-ring__value {
+  font-size: .28rem;
+}
+
+body[data-page="loan-detail"] .metric-row {
+  margin-top: .28rem;
+}
+
+body[data-page="loan-detail"] .metric-row__value {
+  font-size: .28rem;
+}
+
+body[data-page="loan-detail"] .metric-row__label {
+  margin-top: 0.05rem;
+  color: #666;
+  font-size: .22rem;
+}
+
+body:not([data-page="home"]) .loan-card .field-row,
+body:not([data-page="home"]) .record-card__body .field-row,
+body:not([data-page="home"]) .repayment-card .field-row {
+  font-size: .22rem;
+  margin-bottom: .12rem;
+}
+
+body[data-page="usage-record"] .record-card__head {
+  padding: .2rem .22rem .18rem;
+}
+
+body[data-page="usage-record"] .record-card__title {
+  font-size: .25rem;
+}
+
+body[data-page="usage-record"] .record-card__time {
+  margin-top: .1rem;
+  font-size: .2rem;
+}
+
+body[data-page="usage-record"] .record-card__amount {
+  font-size: .25rem;
+}
+
+body[data-page="usage-record"] .record-stack {
+  padding-top: .12rem;
+}
+
+body[data-page="usage-record"] .record-card {
+  margin-bottom: .12rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+body[data-page="usage-record"] .record-card__head {
+  min-height: .92rem;
+}
+
+body[data-page="usage-record"] .record-card__amount-group {
+  gap: .14rem;
+}
+
+body[data-page="usage-record"] .record-card__caret-icon {
+  width: .22rem;
+  height: .26rem;
+}
+
+body[data-page="usage-record"] .record-card__body {
+  padding: .28rem .22rem .52rem;
+  background: #FAFAFA;
+}
+
+body[data-page="usage-record"] .record-card__body .field-row:last-child {
+  margin-bottom: 0;
+}
+
+body[data-page="usage-record"] .bottom-hint {
+  padding: .20rem .18rem;
+  color: #999;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0.4rem;
+  left: 0;
+  width: 100vw;
+}
+
+body[data-page="prepayment-detail"] .app-shell {
+  min-height: 100vh;
+}
+
+body[data-page="prepayment-detail"] .page-section {
+  background: var(--surface);
+}
+
+body[data-page="prepayment-detail"] #prepayment-detail-top {
+  margin-top: .12rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+body[data-page="prepayment-detail"] #prepayment-detail-fields {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+body[data-page="prepayment-detail"] .prepayment-card {
+  padding: .12rem .22rem .02rem;
+  background: var(--surface);
+}
+
+body[data-page="prepayment-detail"] .prepayment-card--stack {
+  padding-top: .14rem;
+  padding-bottom: .04rem;
+}
+
+body[data-page="prepayment-detail"] .prepayment-card .field-row {
+  font-size: .23rem;
+  line-height: 1.4;
+  margin-bottom: .14rem;
+}
+
+body[data-page="prepayment-detail"] .prepayment-card .field-row strong {
+  color: #666;
+  font-size: .24rem;
+}
+
+body[data-page="prepayment-detail"] .prepayment-action-strip {
+  margin-top: .12rem;
+  background: var(--surface);
+}
+
+body[data-page="prepayment-detail"] .prepayment-action-button {
+  color: #e7b33b;
+  font-size: .25rem;
+  font-weight: 600;
+}
+
+body[data-page="monthly-due-detail"] .app-shell {
+  min-height: 100vh;
+}
+
+body[data-page="monthly-due-detail"] .text-button {
+  color: #666;
+  font-size: .22rem;
+}
+
+body[data-page="monthly-due-detail"] #monthly-due-detail-summary {
+  background: var(--surface);
+}
+
+body[data-page="monthly-due-detail"] .monthly-due-card {
+  padding: .56rem .22rem .62rem;
+  text-align: center;
+  background: var(--surface);
+}
+
+body[data-page="monthly-due-detail"] .monthly-due-card__amount {
+  font-size: .48rem;
+  color: #3a3c42;
+  font-weight: 600;
+}
+
+body[data-page="monthly-due-detail"] .monthly-due-card__label {
+  margin-top: .1rem;
+  color: #777;
+  font-size: .24rem;
+}
+
+body[data-page="monthly-due-detail"] .monthly-due-note {
+  min-height: 0;
+  padding: .24rem .22rem;
+}
+
+body[data-page="next-month-due-detail"] .app-shell {
+  min-height: 100vh;
+}
+
+body[data-page="next-month-due-detail"] #next-month-due-summary {
+  background: var(--surface);
+}
+
+body[data-page="next-month-due-detail"] .monthly-due-card {
+  padding: .56rem .22rem .62rem;
+  text-align: center;
+  background: var(--surface);
+}
+
+body[data-page="next-month-due-detail"] .monthly-due-card__amount {
+  font-size: .48rem;
+  color: #3a3c42;
+  font-weight: 600;
+}
+
+body[data-page="next-month-due-detail"] .monthly-due-card__label {
+  margin-top: .22rem;
+  color: #777;
+  font-size: .24rem;
+}
+
+body[data-page="next-month-due-detail"] #next-month-due-list {
+  margin-top: .12rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+body[data-page="next-month-due-detail"] .next-due-card__head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .2rem .22rem;
+  background: var(--surface);
+  text-align: left;
+}
+
+body[data-page="next-month-due-detail"] .next-due-card__date {
+  font-size: .24rem;
+  color: #4b4d52;
+}
+
+body[data-page="next-month-due-detail"] .next-due-card__amount-group {
+  display: inline-flex;
+  align-items: center;
+  gap: .14rem;
+}
+
+body[data-page="next-month-due-detail"] .next-due-card__amount {
+  font-size: .24rem;
+  color: #5a5d63;
+}
+
+body[data-page="next-month-due-detail"] .next-due-card__body {
+  padding: .22rem .22rem .08rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+body[data-page="next-month-due-detail"] .next-due-card__body .field-row {
+  font-size: .23rem;
+  margin-bottom: .18rem;
+}
+
+body[data-page="next-month-due-detail"] .next-due-card__body .field-row strong {
+  color: #666;
+  font-size: .24rem;
+}
+
+body[data-page="next-month-due-detail"] .monthly-due-note {
+  min-height: 0;
+  padding: .24rem .22rem;
+}
+
+body[data-page="repayment-detail"] .tab-switch__tab {
+  min-height: .8rem;
+  font-size: .24rem;
+}
+
+body[data-page="repayment-detail"] .filter-pill {
+  min-height: .4rem;
+  min-width: 22%;
+  font-size: .20rem;
+}
+
+body[data-page="repayment-detail"] .repayment-card {
+  padding: .16rem .22rem .04rem;
+}
+
+body[data-page="home"] .hero-card__detail-chip {
+  font-size: .20rem;
+}
+
+body[data-page="home"] .hero-card__amount {
+  font-size: .48rem;
+}
+
+body[data-page="home"] .hero-card__label {
+  font-size: .24rem;
+}
+
+body[data-page="home"] .hero-stat__value {
+  font-size: .26rem;
+}
+
+body[data-page="home"] .hero-stat__label {
+  font-size: .22rem;
+}
+
+body[data-page="home"] .hero-stat__eye {
+  font-size: .16rem;
+}
+
+body[data-page="home"] .feature-grid__label {
+  font-size: .17rem;
+}
+
+body[data-page="home"] .section-title {
+  font-size: .28rem;
+}
+
+body[data-page="home"] .row-link__label {
+  font-size: .24rem;
+}
+
+body[data-page="home"] .row-link__meta {
+  font-size: .28rem;
+}
+
+body[data-page="home"] .field-row {
+  font-size: .23rem;
+}
