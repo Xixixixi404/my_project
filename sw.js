@@ -1,8 +1,14 @@
-const CACHE_NAME = "fake-bank-v9";
+const CACHE_NAME = "fake-bank-v10";
 const OFFLINE_FALLBACK = "./index.html";
 const ASSETS = [
   "./",
   "./index.html",
+  "./loan-detail.html",
+  "./monthly-due-detail.html",
+  "./next-month-due-detail.html",
+  "./prepayment-detail.html",
+  "./usage-record.html",
+  "./repayment-detail.html",
   "./manifest.webmanifest",
   "./assets/styles/main.css",
   "./assets/scripts/app.js",
@@ -16,6 +22,9 @@ const ASSETS = [
   "./assets/icons/progress.png",
   "./assets/icons/keep.png",
   "./assets/icons/proof.png",
+  "./assets/icons/money.svg",
+  "./assets/icons/record.svg",
+  "./assets/icons/service.svg",
   "./assets/icons/tips.svg"
 ];
 
