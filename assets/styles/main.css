@@ -20,7 +20,7 @@
   --shadow-soft: 0 12px 30px rgba(15, 24, 40, 0.04);
   --radius-card: .24rem;
   --radius-pill: 999px;
-  --topbar-height: .88rem;
+  --topbar-height: .78rem;
   --topbar-side-width: .96rem;
 }
 
@@ -74,10 +74,10 @@ button {
   z-index: 10;
   display: grid;
   grid-template-columns: var(--topbar-side-width) minmax(0, 1fr) var(--topbar-side-width);
-  align-items: center;
+  align-items: start;
   gap: 0;
   min-height: var(--topbar-height);
-  padding: .16rem .18rem .1rem;
+  padding: 0 .18rem .06rem;
   background: var(--surface);
   width: 100%;
   max-width: var(--page-width);
@@ -90,6 +90,7 @@ button {
   line-height: 1.2;
   text-align: center;
   white-space: nowrap;
+  padding-top: 0.05rem;
 }
 
 .icon-button,
@@ -548,7 +549,6 @@ body[data-page="loan-detail"] .loan-detail-scroll {
   height: .26rem;
   object-fit: contain;
   position: relative;
-  top: 0.02rem;
 }
 
 .field-disclosure {
