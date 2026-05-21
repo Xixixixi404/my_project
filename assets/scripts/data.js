@@ -124,7 +124,7 @@
       }
 
       const repayDate = parseDate(item.repayDate);
-      return repayDate >= startMonth && repayDate < effectiveToday;
+      return repayDate >= startMonth && repayDate <= effectiveToday;
     });
   }
 

@@ -150,6 +150,32 @@
     });
   }
 
+  function buildRepaymentHistoryRecords(historyRecords) {
+    const normalizedRecords = Array.isArray(historyRecords) ? historyRecords.slice() : [];
+    const summary = window.FakeBankData.contractSummary;
+    const hasPrepaymentRecord = normalizedRecords.some(function (item) {
+      return item &&
+        item.repayDate === summary.prepaymentDate &&
+        Number(item.principal || 0) === Number(summary.prepaymentAmount);
+    });
+
+    if (!hasPrepaymentRecord) {
+      normalizedRecords.push({
+        contractNo: summary.loanContractNo,
+        repayDate: summary.prepaymentDate,
+        principal: summary.prepaymentAmount,
+        interest: 0,
+        penalty: 0,
+        compoundInterest: 0,
+        payment: summary.prepaymentAmount,
+      });
+    }
+
+    return normalizedRecords.sort(function (left, right) {
+      return String(left.repayDate).localeCompare(String(right.repayDate));
+    });
+  }
+
   function renderHomePage(schedule) {
     const today = getTodayString();
     const outstanding = window.FakeBankData.calculateOutstandingPrincipal(today, schedule);
@@ -546,6 +572,7 @@
 
   function renderRepaymentDetailPage(historyRecords, scheduleRecords) {
     const today = getTodayString();
+    const effectiveHistoryRecords = buildRepaymentHistoryRecords(historyRecords);
     const tabs = document.getElementById("repayment-tab-switch");
     const filters = document.getElementById("repayment-filters");
     const list = document.getElementById("repayment-detail-list");
@@ -574,7 +601,7 @@
     `;
 
     function getVisibleRecords() {
-      const sourceRecords = activeTab === "plan" ? scheduleRecords : historyRecords;
+      const sourceRecords = activeTab === "plan" ? scheduleRecords : effectiveHistoryRecords;
 
       if (activeFilter === "recent-3") {
         return activeTab === "plan"
@@ -601,7 +628,7 @@
         if (endValue && item.repayDate > endValue) {
           return false;
         }
-        return activeTab === "plan" ? item.repayDate >= today : item.repayDate < today;
+        return activeTab === "plan" ? item.repayDate >= today : item.repayDate <= today;
       });
     }
 

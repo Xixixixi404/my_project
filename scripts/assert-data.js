@@ -55,4 +55,22 @@ assert.equal(recentTwelveMonths.length, 0);
 assert.ok(recentTwelveMonths.every((item) => schedule.includes(item)));
 assert.ok(recentTwelveMonths.every((item) => !("isPlaceholder" in item)));
 
+const sameDayRecentHistory = data.filterRecentMonths(
+  [
+    {
+      contractNo: "22810157800034988",
+      repayDate: "2026-05-25",
+      principal: 500000,
+      interest: 0,
+      penalty: 0,
+      compoundInterest: 0,
+      payment: 500000,
+    },
+  ],
+  "2026-05-25",
+  3
+);
+assert.equal(sameDayRecentHistory.length, 1);
+assert.equal(sameDayRecentHistory[0].repayDate, "2026-05-25");
+
 console.log("assert-data.js ok");
