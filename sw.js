@@ -1,4 +1,4 @@
-const CACHE_NAME = "fake-bank-v2";
+const CACHE_NAME = "fake-bank-v3";
 const ASSETS = [
   "./index.html",
   "./loan-detail.html",
@@ -15,7 +15,7 @@ const ASSETS = [
   "./assets/data/repayment_schedule.json",
   "./assets/data/repayment_history.json",
   "./assets/data/usage_records.json",
-  "./assets/icons/app-icon.svg",
+  "./assets/logo.png",
   "./assets/icons/arrow.svg",
   "./assets/icons/back.svg",
   "./assets/icons/eye.svg",
