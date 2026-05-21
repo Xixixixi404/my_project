@@ -1043,8 +1043,9 @@ body[data-page="next-month-due-detail"] .monthly-due-note {
 }
 
 body[data-page="repayment-detail"] .tab-switch__tab {
-  min-height: .8rem;
+  min-height: 0;
   font-size: .24rem;
+  padding-bottom: .24rem;
 }
 
 body[data-page="repayment-detail"] .filter-pill {
