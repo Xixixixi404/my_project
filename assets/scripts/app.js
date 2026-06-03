@@ -206,7 +206,7 @@
     });
   }
 
-  function buildRepaymentHistoryRecords(historyRecords) {
+  function buildRepaymentHistoryRecords(historyRecords, scheduleRecords, today) {
     const normalizedRecords = Array.isArray(historyRecords) ? historyRecords.slice() : [];
     const summary = window.FakeBankData.contractSummary;
     const hasPrepaymentRecord = normalizedRecords.some(function (item) {
@@ -226,6 +226,31 @@
         payment: summary.prepaymentAmount,
       });
     }
+
+    const normalizedScheduleRecords = Array.isArray(scheduleRecords) ? scheduleRecords : [];
+    normalizedScheduleRecords.forEach(function (item) {
+      if (!item || typeof item.repayDate !== "string" || item.repayDate > today) {
+        return;
+      }
+
+      const hasHistoryRecord = normalizedRecords.some(function (historyItem) {
+        return historyItem &&
+          historyItem.contractNo === item.contractNo &&
+          historyItem.repayDate === item.repayDate;
+      });
+
+      if (!hasHistoryRecord) {
+        normalizedRecords.push({
+          contractNo: item.contractNo,
+          repayDate: item.repayDate,
+          principal: Number(item.principal || 0),
+          interest: Number(item.interest || 0),
+          penalty: Number(item.penalty || 0),
+          compoundInterest: Number(item.compoundInterest || 0),
+          payment: Number(item.payment || 0),
+        });
+      }
+    });
 
     return normalizedRecords.sort(function (left, right) {
       return String(left.repayDate).localeCompare(String(right.repayDate));
@@ -628,7 +653,7 @@
 
   function renderRepaymentDetailPage(historyRecords, scheduleRecords) {
     const today = getTodayString();
-    const effectiveHistoryRecords = buildRepaymentHistoryRecords(historyRecords);
+    const effectiveHistoryRecords = buildRepaymentHistoryRecords(historyRecords, scheduleRecords, today);
     const tabs = document.getElementById("repayment-tab-switch");
     const filters = document.getElementById("repayment-filters");
     const list = document.getElementById("repayment-detail-list");
