@@ -715,8 +715,13 @@
 
     function paint() {
       const records = getVisibleRecords();
+      const normalizedRecords = activeTab === "plan"
+        ? records
+        : records.slice().sort(function (left, right) {
+          return String(right.repayDate).localeCompare(String(left.repayDate));
+        });
       const renderCard = activeTab === "plan" ? renderRepaymentPlanCard : renderRepaymentCard;
-      list.innerHTML = `<div class="repayment-list">${records.map(renderCard).join("")}</div>`;
+      list.innerHTML = `<div class="repayment-list">${normalizedRecords.map(renderCard).join("")}</div>`;
     }
 
     const filterPanel = filters.querySelector("#repayment-filter-panel");
