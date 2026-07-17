@@ -560,6 +560,38 @@
     `;
   }
 
+  function buildUsageRecords(records, scheduleRecords, today) {
+    const normalizedRecords = Array.isArray(records) ? records.slice() : [];
+    const normalizedScheduleRecords = Array.isArray(scheduleRecords) ? scheduleRecords : [];
+
+    normalizedScheduleRecords.forEach(function (item) {
+      if (!item || typeof item.repayDate !== "string" || item.repayDate > today) {
+        return;
+      }
+
+      const occurAt = `${item.repayDate}T01:12:00`;
+      const hasUsageRecord = normalizedRecords.some(function (record) {
+        return record && typeof record.occurAt === "string" && record.occurAt.startsWith(`${item.repayDate}T`);
+      });
+
+      if (!hasUsageRecord) {
+        normalizedRecords.push({
+          title: "还款",
+          amount: Number(item.payment || 0),
+          occurAt: occurAt,
+          principal: Number(item.principal || 0),
+          interest: Number(item.interest || 0),
+          penalty: Number(item.penalty || 0),
+          compoundInterest: Number(item.compoundInterest || 0),
+        });
+      }
+    });
+
+    return normalizedRecords.sort(function (left, right) {
+      return String(right.occurAt).localeCompare(String(left.occurAt));
+    });
+  }
+
   function renderUsageRecordPage(records) {
     const root = document.getElementById("usage-record-list");
     const hint = document.getElementById("usage-record-hint");
@@ -777,7 +809,8 @@
 
     if (page === "usage-record") {
       const usageRecords = await loadJson(usagePath);
-      renderUsageRecordPage(usageRecords);
+      const today = getTodayString();
+      renderUsageRecordPage(buildUsageRecords(usageRecords, schedule, today));
       return;
     }
 
