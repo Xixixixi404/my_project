@@ -1,4 +1,4 @@
-const CACHE_NAME = "fake-bank-v10";
+const CACHE_NAME = "fake-bank-v11";
 const OFFLINE_FALLBACK = "./index.html";
 const ASSETS = [
   "./",
@@ -56,6 +56,43 @@ self.addEventListener("fetch", (event) => {
 
   const requestUrl = new URL(event.request.url);
   if (requestUrl.origin !== self.location.origin) {
+    return;
+  }
+
+  const isNetworkFirstResource =
+    event.request.mode === "navigate" ||
+    event.request.destination === "script" ||
+    event.request.destination === "style" ||
+    requestUrl.pathname.endsWith(".json") ||
+    requestUrl.pathname.endsWith(".webmanifest");
+
+  if (isNetworkFirstResource) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseClone);
+            });
+          }
+
+          return response;
+        })
+        .catch(() =>
+          caches.match(event.request).then((cached) => {
+            if (cached) {
+              return cached;
+            }
+
+            if (event.request.mode === "navigate") {
+              return caches.match(OFFLINE_FALLBACK);
+            }
+
+            return Response.error();
+          })
+        )
+    );
     return;
   }
 
